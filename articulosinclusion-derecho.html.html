@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La inclusión no es un acto de caridad, es un derecho — Blog | Entre Lazos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a2f;
+            --primary-light: #2d5a4a;
+            --accent: #c8a97e;
+            --accent-light: #e8d5b5;
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --text-dark: #1c1c1c;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --border: #e8e4df;
+            --cat-edu: #1a3a2f;
+            --cat-gestion: #c8a97e;
+            --cat-psico: #8b7355;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 500; }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .article-hero {
+            padding: 160px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-hero.edu {
+            background: linear-gradient(135deg, #1a3a2f 0%, #2d5a4a 100%);
+        }
+
+        .article-hero.edu * { color: white; }
+        .article-hero.edu .article-meta { color: rgba(255,255,255,0.7); }
+
+        .article-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(255,255,255,0.15);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .article-hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .article-hero .article-excerpt {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .breadcrumb {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 40px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover { color: var(--primary); }
+
+        .breadcrumb span { margin: 0 8px; color: var(--border); }
+
+        .article-section {
+            padding: 40px 40px 80px;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+
+        .article-body h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin: 40px 0 16px;
+            line-height: 1.3;
+        }
+
+        .article-body h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin: 30px 0 12px;
+        }
+
+        .article-body p {
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 20px 28px;
+            margin: 28px 0;
+            background: var(--bg-cream);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--primary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .article-body blockquote cite {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: normal;
+        }
+
+        .article-body ul, .article-body ol {
+            margin: 20px 0 20px 24px;
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-body li { margin-bottom: 10px; }
+
+        .article-body strong { color: var(--primary); }
+
+        .article-highlight {
+            background: linear-gradient(135deg, var(--accent-light), rgba(200,169,126,0.2));
+            border-radius: 12px;
+            padding: 28px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .article-highlight p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .author-box {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            padding: 32px;
+            background: var(--bg-cream);
+            border-radius: 12px;
+            margin-top: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .author-avatar {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .author-info .author-role {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .share-section {
+            text-align: center;
+            padding: 40px 0 0;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .share-section h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .share-btn {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .related-section {
+            padding: 80px 40px;
+            background: var(--bg-cream);
+        }
+
+        .related-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .related-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-image.edu { background: linear-gradient(135deg, var(--cat-edu), #2d5a4a); }
+        .related-image.gestion { background: linear-gradient(135deg, var(--cat-gestion), #a08050); }
+        .related-image.psico { background: linear-gradient(135deg, var(--cat-psico), #a08060); }
+
+        .related-image .icon {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .related-content {
+            padding: 20px;
+        }
+
+        .related-content .cat {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .related-content .cat.edu { color: var(--cat-edu); }
+        .related-content .cat.gestion { color: var(--cat-gestion); }
+        .related-content .cat.psico { color: var(--cat-psico); }
+
+        .related-content h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        .newsletter-section {
+            background: var(--primary);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            color: white;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 12px;
+        }
+
+        .newsletter-content p {
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+
+        .newsletter-form input:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent);
+        }
+
+        .newsletter-form button {
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li { margin-bottom: 10px; }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .article-container { padding: 40px; }
+            .author-box { flex-direction: column; align-items: center; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+
+            .article-hero { padding: 140px 24px 50px; }
+            .article-section { padding: 30px 24px 60px; }
+            .breadcrumb { padding: 16px 24px; }
+            .article-container { padding: 28px; }
+            .related-section { padding: 60px 24px; }
+            .newsletter-section { padding: 60px 24px; }
+
+            .newsletter-form { flex-direction: column; }
+            .newsletter-form button { width: 100%; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Entre <span>Lazos</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="../index.html#servicios">Servicios</a></li>
+                <li><a href="../index.html#capacitaciones">Capacitaciones</a></li>
+                <li><a href="../index.html#sobre-nosotros">Sobre Mí</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../index.html#testimonios">Testimonios</a></li>
+                <li><a href="../index.html#precios">Precios</a></li>
+                <li><a href="../index.html#contacto" class="nav-cta">Contactar</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="article-hero edu">
+        <div class="article-hero-content">
+            <div class="article-category">Educación Especial</div>
+            <h1>La inclusión no es un acto de caridad, es un derecho</h1>
+            <p class="article-excerpt">Reflexiones sobre cómo la educación especial nos enseña que la diversidad no es un problema por resolver, sino una riqueza por celebrar.</p>
+            <div class="article-meta">
+                <span>&#128197; 15 de junio de 2026</span>
+                <span>&#9201; 6 minutos de lectura</span>
+                <span>&#9998; Por Entre Lazos</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Inicio</a>
+        <span>/</span>
+        <a href="../blog.html">Blog</a>
+        <span>/</span>
+        <span style="color: var(--text-medium);">La inclusión no es un acto de caridad</span>
+    </div>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="article-body">
+
+                <p><strong>Hace algunos años, durante una práctica docente en un aula de educación especial,</strong> una niña de ocho años me miró y me dijo algo que nunca olvidé: "Profe, ¿por qué siempre me ayudan como si estuviera rota?"</p>
+
+                <p>Esa pregunta me detuvo en seco. En ese momento entendí que durante mucho tiempo había confundido <em>ayudar</em> con <em>incluir</em>. Que la diferencia entre la caridad y el derecho no está en la acción, sino en la mirada con la que se realiza.</p>
+
+                <blockquote>
+                    "La inclusión no es un acto de generosidad hacia quien falta algo. Es el reconocimiento de que todos somos diferentes, y que esas diferencias son lo que enriquece a la comunidad."
+                    <cite>— Reflexión desde la práctica</cite>
+                </blockquote>
+
+                <h2>1. La mirada que cambia todo</h2>
+                <p>Como profesora de educación especial, he estado en salones donde la diversidad funcional era vista como una carga. He escuchado frases como "este niño retrasa la clase" o "no tenemos los recursos para atenderlo". Y cada vez que escucho eso, pienso en la niña que me preguntó por qué la trataban como rota.</p>
+
+                <p>La educación especial no nació para "arreglar" a nadie. Nació para garantizar que <strong>cada persona, con sus particularidades únicas, tenga acceso a una educación de calidad</strong>. Ese es el derecho. No la caridad.</p>
+
+                <div class="article-highlight">
+                    <p>"Cuando incluimos desde la caridad, creamos dependencia. Cuando incluimos desde el derecho, creamos comunidad."</p>
+                </div>
+
+                <h2>2. El marco legal que respalda lo ético</h2>
+                <p>Desde la gestión educativa, entiendo que la inclusión no es solo una cuestión de sensibilidad. Es una obligación jurídica. Convenciones internacionales, leyes nacionales y políticas educativas establecen claramente que la educación inclusiva es un derecho humano.</p>
+
+                <p>Pero las leyes por sí solas no transforman aulas. Lo que transforma aulas es la <strong>práctica cotidiana</strong> de docentes que entienden que la diversidad no es una excepción, sino la norma.</p>
+
+                <h3>¿Qué significa esto en el día a día?</h3>
+                <ul>
+                    <li><strong>Diseñar ambientes accesibles</strong> no como adaptación, sino como principio pedagógico.</li>
+                    <li><strong>Reconocer múltiples formas de aprender</strong> y evaluar según esas formas, no según un estándar único.</li>
+                    <li><strong>Escuchar a los estudiantes</strong> como sujetos de derecho, no como objetos de intervención.</li>
+                </ul>
+
+                <h2>3. La psicología social del "nosotros"</h2>
+                <p>Desde la psicología social, sé que la inclusión verdadera ocurre cuando dejamos de ver al "otro" como alguien que necesita ser integrado en "nuestro" grupo, y empezamos a entender que <strong>el "nosotros" ya incluye a todos</strong>.</p>
+
+                <p>La identidad grupal no se construye por homogeneidad, sino por reconocimiento mutuo. Cuando un aula se define como un espacio donde todos pertenecen, la diversidad deja de ser un desafío y se convierte en un recurso.</p>
+
+                <blockquote>
+                    "No incluimos a quienes son diferentes. Reconocemos que todos somos diferentes, y que eso es lo que nos hace comunidad."
+                    <cite>— Entre Lazos</cite>
+                </blockquote>
+
+                <h2>Para reflexionar</h2>
+                <p>La próxima vez que veas un espacio de "inclusión", pregúntate: ¿se trata de un acto de caridad, o de un acto de justicia? ¿La persona diversa está siendo <em>ayudada</em> a encajar, o está siendo <em>reconocida</em> como parte esencial de la comunidad?</p>
+
+                <p>La diferencia entre ambas respuestas es la diferencia entre una sociedad que tolera y una sociedad que transforma.</p>
+
+                <p><strong>¿Te ha tocado vivir o presenciar una situación donde la inclusión se confundió con caridad?</strong> Me encantaría leer tu experiencia. La conversación continúa en el próximo artículo.</p>
+
+            </div>
+
+            <div class="author-box fade-in">
+                <div class="author-avatar">EL</div>
+                <div class="author-info">
+                    <h4>Entre Lazos</h4>
+                    <div class="author-role">Profesora · Gestora · Psicóloga Social</div>
+                    <p>Acompaño procesos de inclusión, fortalezco vínculos y construyo comunidades donde la diversidad sea celebrada y la empatía sea el lenguaje común.</p>
+                </div>
+            </div>
+
+            <div class="share-section">
+                <h4>Compartir este artículo</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn" title="Facebook">f</a>
+                    <a href="#" class="share-btn" title="Twitter">X</a>
+                    <a href="#" class="share-btn" title="LinkedIn">in</a>
+                    <a href="#" class="share-btn" title="WhatsApp">W</a>
+                    <a href="#" class="share-btn" title="Copiar link">&#128279;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section">
+        <div class="related-header">
+            <h2>Artículos relacionados</h2>
+        </div>
+        <div class="related-grid">
+            <a href="empatia-siglo-xxi.html" class="related-card">
+                <div class="related-image psico">
+                    <div class="icon">&#9829;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat psico">Psicología Social</div>
+                    <h4>Empatía: la habilidad más subestimada del siglo XXI</h4>
+                </div>
+            </a>
+            <a href="gestion-educativa-alma.html" class="related-card">
+                <div class="related-image gestion">
+                    <div class="icon">&#9851;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat gestion">Gestión Educativa</div>
+                    <h4>Gestión educativa con alma: cuando los números no lo dicen todo</h4>
+                </div>
+            </a>
+            <a href="adaptaciones-curriculares.html" class="related-card">
+                <div class="related-image edu">
+                    <div class="icon">&#9733;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat edu">Educación Especial</div>
+                    <h4>Adaptaciones curriculares: más allá del ajuste técnico</h4>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Recibe reflexiones en tu bandeja</h2>
+            <p>Un artículo cada quincena. Sin spam, solo ideas que conectan y transforman.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte! Recibirás las próximas reflexiones en tu email.');">
+                <input type="email" placeholder="tu@email.com" required>
+                <button type="submit">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo">Entre <span>Lazos</span></a>
+                <p>Construyendo comunidades inclusivas, fortaleciendo vínculos y transformando realidades a través de la empatía y la diversidad.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.html#servicios">Servicios</a></li>
+                    <li><a href="../index.html#capacitaciones">Capacitaciones</a></li>
+                    <li><a href="../index.html#sobre-nosotros">Sobre Mí</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contenido</h4>
+                <ul>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../index.html#testimonios">Testimonios</a></li>
+                    <li><a href="../index.html#precios">Precios</a></li>
+                    <li><a href="../index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="../index.html#servicios">Consultoría</a></li>
+                    <li><a href="../index.html#servicios">Capacitación</a></li>
+                    <li><a href="../index.html#servicios">Acompañamiento</a></li>
+                    <li><a href="../index.html#servicios">Gestión Social</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Entre Lazos. Todos los derechos reservados. Hecho con empatía.
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '80px';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(250,248,245,0.98)';
+            navLinks.style.padding = '24px';
+            navLinks.style.gap = '20px';
+            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        }
+    </script>
+</body>
+</html>
