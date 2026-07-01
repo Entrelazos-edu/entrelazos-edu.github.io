@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Lazos — Inclusión · Vínculo · Comunidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a2f;
+            --primary-light: #2d5a4a;
+            --accent: #c8a97e;
+            --accent-light: #e8d5b5;
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --text-dark: #1c1c1c;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --border: #e8e4df;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 500; }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 40px 80px;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, #f0ebe3 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(200,169,126,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10%; left: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(26,58,47,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(200,169,126,0.15);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(200,169,126,0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        .hero-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+
+        .hero-keywords span {
+            padding: 8px 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .hero-keywords span:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 36px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,58,47,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #b89868;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(200,169,126,0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section { padding: 100px 40px; }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 70px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== SERVICIOS ===== */
+        #servicios { background: white; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            border-color: var(--accent-light);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ===== SOBRE NOSOTROS ===== */
+        #sobre-nosotros { background: var(--bg-cream); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; right: -20px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .about-content p {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .about-credentials {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 28px 0;
+            border: 1px solid var(--border);
+        }
+
+        .about-credentials h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .credential-item:last-child { border-bottom: none; }
+
+        .credential-item .check {
+            width: 22px; height: 22px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .credential-item span {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .value-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .value-item .dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .value-item span {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* ===== CAPACITACIONES ONLINE ===== */
+        #capacitaciones { background: white; }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image .icon {
+            font-size: 3rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .course-content {
+            padding: 28px;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .course-meta span {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .course-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .course-card p {
+            color: var(--text-medium);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .course-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .course-price span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===== BLOG PREVIEW (en página principal) ===== */
+        #blog-preview { background: var(--bg-cream); }
+
+        .blog-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-preview-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .blog-preview-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .blog-preview-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .blog-preview-image .icon {
+            font-size: 2.5rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .blog-preview-category {
+            position: absolute;
+            bottom: 16px; left: 16px;
+            background: white;
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .blog-preview-content {
+            padding: 24px;
+        }
+
+        .blog-preview-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .blog-preview-card h3 {
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .blog-preview-card p {
+            color: var(--text-medium);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .blog-read-more {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s;
+        }
+
+        .blog-read-more:hover { gap: 10px; }
+
+        .blog-cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* ===== TESTIMONIOS ===== */
+        #testimonios { background: white; }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            padding: 40px 30px;
+            position: relative;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 16px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--text-medium);
+            margin-bottom: 24px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .testimonial-info span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* ===== PRECIOS ===== */
+        #precios { background: var(--bg-cream); }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Más Popular';
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 2.8rem;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            margin: 20px 0 8px;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-card .period {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features li:last-child { border-bottom: none; }
+
+        /* ===== CONTACTO ===== */
+        #contacto { background: white; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-item .icon {
+            width: 48px; height: 48px;
+            background: var(--bg-cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item div strong {
+            display: block;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .contact-item div span {
+            color: var(--text-medium);
+            font-size: 0.85rem;
+        }
+
+        .contact-form {
+            background: var(--bg-cream);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(200,169,126,0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li { margin-bottom: 10px; }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .about-grid,
+            .contact-grid { grid-template-columns: 1fr; }
+
+            .about-image { order: -1; }
+            .about-image img { height: 350px; }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: scale(1) translateY(-8px); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+
+            section { padding: 70px 24px; }
+
+            .hero { padding: 120px 24px 80px; }
+
+            .hero-keywords { gap: 8px; }
+            .hero-keywords span { font-size: 0.7rem; padding: 6px 12px; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+
+            .form-row { grid-template-columns: 1fr; }
+
+            .about-values { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Entre <span>Lazos</span></a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#capacitaciones">Capacitaciones</a></li>
+                <li><a href="#sobre-nosotros">Sobre Mí</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#precios">Precios</a></li>
+                <li><a href="#contacto" class="nav-cta">Contactar</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-tag">Bienvenidos a Entre Lazos</div>
+            <h1>Donde los <em>lazos</em> transforman vidas</h1>
+            <p class="hero-subtitle">
+                Acompaño procesos de inclusión, fortalezco vínculos y construyo comunidades 
+                sólidas a través de la diversidad, la empatía y la gestión educativa.
+            </p>
+            <div class="hero-keywords">
+                <span>Inclusión</span>
+                <span>Vínculo</span>
+                <span>Comunidad</span>
+                <span>Diversidad</span>
+                <span>Gestión</span>
+                <span>Empatía</span>
+                <span>Transformar</span>
+                <span>Acompañar</span>
+                <span>Conectar</span>
+            </div>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn btn-primary">Comenzar Ahora</a>
+                <a href="#capacitaciones" class="btn btn-accent">Ver Capacitaciones</a>
+                <a href="#servicios" class="btn btn-outline">Conocer Servicios</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>EXPLORAR</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Nuestros Servicios</span>
+                <h2>Soluciones que conectan y transforman</h2>
+                <p>Diseño experiencias y programas que fortalecen la inclusión, el vínculo social y el desarrollo comunitario.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9829;</div>
+                    <h3>Consultoría en Inclusión</h3>
+                    <p>Acompaño a organizaciones en la construcción de espacios inclusivos, diversos y equitativos mediante diagnósticos, capacitaciones y estrategias personalizadas.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9733;</div>
+                    <h3>Fortalecimiento de Vínculos</h3>
+                    <p>Programas diseñados para mejorar las relaciones interpersonales, familiares y comunitarias a través de talleres vivenciales y mediación.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9786;</div>
+                    <h3>Desarrollo Comunitario</h3>
+                    <p>Impulso el tejido social mediante proyectos participativos que promueven la colaboración, la solidaridad y el empoderamiento local.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9851;</div>
+                    <h3>Capacitación y Formación</h3>
+                    <p>Talleres y cursos especializados en diversidad, empatía, gestión de conflictos y liderazgo inclusivo para equipos y comunidades.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9734;</div>
+                    <h3>Acompañamiento Emocional</h3>
+                    <p>Espacios seguros de escucha y contención para personas que atraviesan procesos de cambio, pérdida o transición vital.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">&#9855;</div>
+                    <h3>Gestión de Proyectos Sociales</h3>
+                    <p>Diseño, ejecución y evaluación de proyectos con impacto social, alineados con los Objetivos de Desarrollo Sostenible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAPACITACIONES ONLINE -->
+    <section id="capacitaciones">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Capacitaciones Online</span>
+                <h2>Aprende desde cualquier lugar</h2>
+                <p>Cursos en línea diseñados con base científica y experiencia práctica en educación especial, gestión educativa y psicología social.</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card fade-in">
+                    <div class="course-image">
+                        <div class="icon">&#9733;</div>
+                        <div class="course-badge">EN VIVO</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span>&#9201; 8 semanas</span>
+                            <span>&#128101; 20 personas</span>
+                            <span>&#127891; Certificado</span>
+                        </div>
+                        <h3>Inclusión Educativa en el Aula</h3>
+                        <p>Estrategias prácticas para docentes que buscan crear ambientes de aprendizaje verdaderamente inclusivos para estudiantes con necesidades especiales.</p>
+                        <div class="course-footer">
+                            <div class="course-price">$120 <span>USD</span></div>
+                            <a href="#contacto" class="btn btn-primary" style="padding:10px 24px;font-size:0.8rem;">Inscribirme</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card fade-in">
+                    <div class="course-image">
+                        <div class="icon">&#9829;</div>
+                        <div class="course-badge">NUEVO</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span>&#9201; 6 semanas</span>
+                            <span>&#128101; 15 personas</span>
+                            <span>&#127891; Certificado</span>
+                        </div>
+                        <h3>Empatía y Comunicación Vincular</h3>
+                        <p>Desarrolla habilidades de escucha activa, comunicación asertiva y construcción de vínculos sanos en contextos familiares, laborales y comunitarios.</p>
+                        <div class="course-footer">
+                            <div class="course-price">$95 <span>USD</span></div>
+                            <a href="#contacto" class="btn btn-primary" style="padding:10px 24px;font-size:0.8rem;">Inscribirme</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card fade-in">
+                    <div class="course-image">
+                        <div class="icon">&#9851;</div>
+                        <div class="course-badge">GRABADO</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span>&#9201; 4 semanas</span>
+                            <span>&#128101; Ilimitado</span>
+                            <span>&#127891; Certificado</span>
+                        </div>
+                        <h3>Gestión Educativa con Impacto Social</h3>
+                        <p>Herramientas de planificación, evaluación y liderazgo para directores, coordinadores y gestores educativos comprometidos con la transformación.</p>
+                        <div class="course-footer">
+                            <div class="course-price">$80 <span>USD</span></div>
+                            <a href="#contacto" class="btn btn-primary" style="padding:10px 24px;font-size:0.8rem;">Inscribirme</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content fade-in">
+                    <span class="section-tag">Sobre Mí</span>
+                    <h2>Creo en el poder de los lazos humanos</h2>
+                    <p>
+                        <strong>Entre Lazos</strong> nace de mi convicción de que cada persona merece ser incluida, escuchada y acompañada. 
+                        Soy una profesional apasionada por construir puentes entre las diferencias 
+                        y transformar realidades a través del vínculo genuino.
+                    </p>
+                    <p>
+                        Mi misión es acompañar procesos de cambio social, fortalecer comunidades y generar espacios 
+                        donde la diversidad sea celebrada y la empatía sea el lenguaje común.
+                    </p>
+                    <div class="about-credentials">
+                        <h4>Formación Académica</h4>
+                        <div class="credential-item">
+                            <div class="check">&#10003;</div>
+                            <span>Profesora de Educación Especial</span>
+                        </div>
+                        <div class="credential-item">
+                            <div class="check">&#10003;</div>
+                            <span>Licenciada en Gestión Educativa</span>
+                        </div>
+                        <div class="credential-item">
+                            <div class="check">&#10003;</div>
+                            <span>Psicóloga Social</span>
+                        </div>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-item"><div class="dot"></div><span>Inclusión real</span></div>
+                        <div class="value-item"><div class="dot"></div><span>Vínculos auténticos</span></div>
+                        <div class="value-item"><div class="dot"></div><span>Diversidad consciente</span></div>
+                        <div class="value-item"><div class="dot"></div><span>Gestión con propósito</span></div>
+                        <div class="value-item"><div class="dot"></div><span>Empatía activa</span></div>
+                        <div class="value-item"><div class="dot"></div><span>Transformación sostenible</span></div>
+                    </div>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Personas conectadas en comunidad">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG PREVIEW (en página principal) -->
+    <section id="blog-preview">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Desde el Blog</span>
+                <h2>Reflexiones que conectan ideas</h2>
+                <p>Artículos, recursos e ideas para quienes creen en la transformación social a través de la educación y el vínculo.</p>
+            </div>
+            <div class="blog-preview-grid">
+                <article class="blog-preview-card fade-in">
+                    <div class="blog-preview-image">
+                        <div class="icon">&#9998;</div>
+                        <span class="blog-preview-category">Inclusión</span>
+                    </div>
+                    <div class="blog-preview-content">
+                        <div class="blog-preview-date">15 de junio de 2026</div>
+                        <h3>La inclusión no es un acto de caridad, es un derecho</h3>
+                        <p>Reflexiones sobre cómo la educación especial nos enseña que la diversidad no es un problema por resolver, sino una riqueza por celebrar...</p>
+                        <a href="blog.html#inclusion-derecho" class="blog-read-more">Leer más &rarr;</a>
+                    </div>
+                </article>
+                <article class="blog-preview-card fade-in">
+                    <div class="blog-preview-image">
+                        <div class="icon">&#9829;</div>
+                        <span class="blog-preview-category">Vínculos</span>
+                    </div>
+                    <div class="blog-preview-content">
+                        <div class="blog-preview-date">28 de mayo de 2026</div>
+                        <h3>Empatía: la habilidad más subestimada del siglo XXI</h3>
+                        <p>Desde la psicología social, exploramos por qué la empatía no es solo una virtud personal, sino una competencia clave para la gestión educativa...</p>
+                        <a href="blog.html#empatia-siglo-xxi" class="blog-read-more">Leer más &rarr;</a>
+                    </div>
+                </article>
+                <article class="blog-preview-card fade-in">
+                    <div class="blog-preview-image">
+                        <div class="icon">&#9851;</div>
+                        <span class="blog-preview-category">Gestión</span>
+                    </div>
+                    <div class="blog-preview-content">
+                        <div class="blog-preview-date">10 de abril de 2026</div>
+                        <h3>Gestión educativa con alma: cuando los números no lo dicen todo</h3>
+                        <p>Cómo integrar la dimensión humana en la administración educativa para lograr instituciones que realmente transformen vidas...</p>
+                        <a href="blog.html#gestion-educativa-alma" class="blog-read-more">Leer más &rarr;</a>
+                    </div>
+                </article>
+            </div>
+            <div class="blog-cta fade-in">
+                <a href="blog.html" class="btn btn-outline">Explorar todos los artículos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Testimonios</span>
+                <h2>Lo que dicen quienes me acompañan</h2>
+                <p>Historias de transformación, conexión y crecimiento compartido.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">
+                        Entre Lazos transformó completamente la cultura de nuestra organización. 
+                        El programa de inclusión no solo cambió políticas, cambió corazones. 
+                        Hoy nos sentimos una comunidad verdadera.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div class="testimonial-info">
+                            <h4>María Cecilia Ríos</h4>
+                            <span>Directora de RRHH, Fundación Esperanza</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">
+                        El acompañamiento que recibí en un momento de transición vital fue invaluable. 
+                        Me sentí escuchada, contenida y empoderada para seguir adelante. 
+                        Gracias por existir.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JL</div>
+                        <div class="testimonial-info">
+                            <h4>Javier López</h4>
+                            <span>Participante del Programa de Vínculos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">
+                        Como empresa, buscábamos algo más que una capacitación estándar. 
+                        Entre Lazos diseñó una experiencia transformadora que conectó a nuestro equipo 
+                        de una manera que nunca imaginamos.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AP</div>
+                        <div class="testimonial-info">
+                            <h4>Ana Paula Méndez</h4>
+                            <span>Gerente de Cultura, Grupo Nexus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section id="precios">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Planes y Precios</span>
+                <h2>Inversión en conexión</h2>
+                <p>Planes flexibles diseñados para personas, equipos y organizaciones que quieren crecer juntos.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <h3>Individual</h3>
+                    <div class="price">$49<span> USD</span></div>
+                    <div class="period">por sesión</div>
+                    <ul class="pricing-features">
+                        <li>1 sesión de acompañamiento</li>
+                        <li>Evaluación inicial personalizada</li>
+                        <li>Recursos digitales exclusivos</li>
+                        <li>Seguimiento por email</li>
+                        <li>Acceso a comunidad online</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-outline" style="width:100%;">Elegir Plan</a>
+                </div>
+                <div class="pricing-card featured fade-in">
+                    <h3>Equipo</h3>
+                    <div class="price">$299<span> USD</span></div>
+                    <div class="period">por mes</div>
+                    <ul class="pricing-features">
+                        <li>4 sesiones grupales mensuales</li>
+                        <li>Talleres de fortalecimiento</li>
+                        <li>Diagnóstico de inclusión</li>
+                        <li>Coaching para líderes</li>
+                        <li>Reporte de impacto mensual</li>
+                        <li>Soporte prioritario</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-primary" style="width:100%;">Elegir Plan</a>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3>Organización</h3>
+                    <div class="price">Custom</div>
+                    <div class="period">a medida</div>
+                    <ul class="pricing-features">
+                        <li>Programa integral personalizado</li>
+                        <li>Consultoría estratégica</li>
+                        <li>Capacitaciones a gran escala</li>
+                        <li>Evaluación de impacto social</li>
+                        <li>Acompañamiento continuo</li>
+                        <li>Dashboard de métricas</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-outline" style="width:100%;">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Contacto</span>
+                <h2>Conectemos</h2>
+                <p>Estoy aquí para escucharte, acompañarte y construir juntos.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>¿Listo para transformar?</h3>
+                    <p>
+                        Ya sea que busques acompañamiento personal, fortalecer tu equipo 
+                        o transformar tu organización, quiero conocerte. Escríbeme 
+                        y comencemos a tejer lazos.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="icon">&#9993;</div>
+                            <div>
+                                <strong>Email</strong>
+                                <span>hola@entrelazos.org</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">&#9742;</div>
+                            <div>
+                                <strong>Teléfono</strong>
+                                <span>+52 (55) 1234-5678</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">&#9733;</div>
+                            <div>
+                                <strong>Ubicación</strong>
+                                <span>Ciudad de México, México</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">&#9786;</div>
+                            <div>
+                                <strong>Horario</strong>
+                                <span>Lun — Vie: 9:00 a 18:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <form onsubmit="event.preventDefault(); alert('¡Gracias por contactarme! Te responderé pronto.');">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido</label>
+                                <input type="text" placeholder="Tu apellido" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de consulta</label>
+                            <select required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="individual">Acompañamiento Individual</option>
+                                <option value="equipo">Fortalecimiento de Equipo</option>
+                                <option value="organizacion">Consultoría Organizacional</option>
+                                <option value="capacitacion">Capacitación Online</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea placeholder="Cuéntame cómo puedo ayudarte..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">Entre <span>Lazos</span></a>
+                <p>Construyendo comunidades inclusivas, fortaleciendo vínculos y transformando realidades a través de la empatía y la diversidad.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#capacitaciones">Capacitaciones</a></li>
+                    <li><a href="#sobre-nosotros">Sobre Mí</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contenido</h4>
+                <ul>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#precios">Precios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#servicios">Consultoría</a></li>
+                    <li><a href="#servicios">Capacitación</a></li>
+                    <li><a href="#servicios">Acompañamiento</a></li>
+                    <li><a href="#servicios">Gestión Social</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Entre Lazos. Todos los derechos reservados. Hecho con empatía.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '80px';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(250,248,245,0.98)';
+            navLinks.style.padding = '24px';
+            navLinks.style.gap = '20px';
+            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        }
+    </script>
+</body>
+</html>

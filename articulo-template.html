@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TÍTULO DEL ARTÍCULO — Blog | Entre Lazos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a2f;
+            --primary-light: #2d5a4a;
+            --accent: #c8a97e;
+            --accent-light: #e8d5b5;
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --text-dark: #1c1c1c;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --border: #e8e4df;
+            --cat-edu: #1a3a2f;
+            --cat-gestion: #c8a97e;
+            --cat-psico: #8b7355;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 500; }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s;
+        }
+
+        /* ===== ARTICLE HERO ===== */
+        .article-hero {
+            padding: 160px 40px 60px;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, #f0ebe3 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-hero.edu { background: linear-gradient(135deg, #1a3a2f 0%, #2d5a4a 100%); }
+        .article-hero.gestion { background: linear-gradient(135deg, #c8a97e 0%, #a08050 100%); }
+        .article-hero.psico { background: linear-gradient(135deg, #8b7355 0%, #a08060 100%); }
+
+        .article-hero.edu *, .article-hero.psico * { color: white; }
+        .article-hero.edu .article-meta, .article-hero.psico .article-meta { color: rgba(255,255,255,0.7); }
+        .article-hero.gestion * { color: var(--primary); }
+        .article-hero.gestion .article-meta { color: var(--text-medium); }
+
+        .article-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(255,255,255,0.15);
+            color: inherit;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .article-hero.gestion .article-category {
+            background: rgba(26,58,47,0.1);
+            border-color: rgba(26,58,47,0.2);
+        }
+
+        .article-hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .article-hero .article-excerpt {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 40px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover { color: var(--primary); }
+
+        .breadcrumb span { margin: 0 8px; color: var(--border); }
+
+        /* ===== ARTICLE CONTENT ===== */
+        .article-section {
+            padding: 40px 40px 80px;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+
+        .article-body h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin: 40px 0 16px;
+            line-height: 1.3;
+        }
+
+        .article-body h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin: 30px 0 12px;
+        }
+
+        .article-body p {
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 20px 28px;
+            margin: 28px 0;
+            background: var(--bg-cream);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--primary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .article-body blockquote cite {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: normal;
+        }
+
+        .article-body ul, .article-body ol {
+            margin: 20px 0 20px 24px;
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-body li { margin-bottom: 10px; }
+
+        .article-body strong { color: var(--primary); }
+
+        .article-highlight {
+            background: linear-gradient(135deg, var(--accent-light), rgba(200,169,126,0.2));
+            border-radius: 12px;
+            padding: 28px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .article-highlight p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ===== AUTHOR BOX ===== */
+        .author-box {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            padding: 32px;
+            background: var(--bg-cream);
+            border-radius: 12px;
+            margin-top: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .author-avatar {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .author-info .author-role {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ===== SHARE ===== */
+        .share-section {
+            text-align: center;
+            padding: 40px 0 0;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .share-section h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .share-btn {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== RELATED ARTICLES ===== */
+        .related-section {
+            padding: 80px 40px;
+            background: var(--bg-cream);
+        }
+
+        .related-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .related-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-image.edu { background: linear-gradient(135deg, var(--cat-edu), #2d5a4a); }
+        .related-image.gestion { background: linear-gradient(135deg, var(--cat-gestion), #a08050); }
+        .related-image.psico { background: linear-gradient(135deg, var(--cat-psico), #a08060); }
+
+        .related-image .icon {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .related-content {
+            padding: 20px;
+        }
+
+        .related-content .cat {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .related-content .cat.edu { color: var(--cat-edu); }
+        .related-content .cat.gestion { color: var(--cat-gestion); }
+        .related-content .cat.psico { color: var(--cat-psico); }
+
+        .related-content h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter-section {
+            background: var(--primary);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            color: white;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 12px;
+        }
+
+        .newsletter-content p {
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+
+        .newsletter-form input:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent);
+        }
+
+        .newsletter-form button {
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li { margin-bottom: 10px; }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .article-container { padding: 40px; }
+            .author-box { flex-direction: column; align-items: center; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+
+            .article-hero { padding: 140px 24px 50px; }
+            .article-section { padding: 30px 24px 60px; }
+            .breadcrumb { padding: 16px 24px; }
+            .article-container { padding: 28px; }
+            .related-section { padding: 60px 24px; }
+            .newsletter-section { padding: 60px 24px; }
+
+            .newsletter-form { flex-direction: column; }
+            .newsletter-form button { width: 100%; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Entre <span>Lazos</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="../index.html#servicios">Servicios</a></li>
+                <li><a href="../index.html#capacitaciones">Capacitaciones</a></li>
+                <li><a href="../index.html#sobre-nosotros">Sobre Mí</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../index.html#testimonios">Testimonios</a></li>
+                <li><a href="../index.html#precios">Precios</a></li>
+                <li><a href="../index.html#contacto" class="nav-cta">Contactar</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ARTICLE HERO -->
+    <!-- Cambia la clase según la categoría: edu | gestion | psico -->
+    <section class="article-hero edu">
+        <div class="article-hero-content">
+            <div class="article-category">CATEGORÍA DEL ARTÍCULO</div>
+            <h1>Título del artículo aquí</h1>
+            <p class="article-excerpt">Una breve frase que resume la idea central del artículo, como un subtítulo atractivo que invite a leer.</p>
+            <div class="article-meta">
+                <span>&#128197; 15 de junio de 2026</span>
+                <span>&#9201; 6 minutos de lectura</span>
+                <span>&#9998; Por Entre Lazos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="../index.html">Inicio</a>
+        <span>/</span>
+        <a href="../blog.html">Blog</a>
+        <span>/</span>
+        <span style="color: var(--text-medium);">Título del artículo</span>
+    </div>
+
+    <!-- ARTICLE CONTENT -->
+    <section class="article-section">
+        <div class="article-container">
+            <div class="article-body">
+
+                <!-- INTRODUCCIÓN -->
+                <p><strong>Primer párrafo impactante.</strong> Aquí comienzas con una idea que enganche al lector. Puede ser una pregunta provocadora, una anécdota o un dato sorprendente. Este párrafo debe responder: ¿por qué debería importarme esto?</p>
+
+                <p>Segundo párrafo que desarrolle el contexto. Explica de qué hablarás en el artículo y por qué es relevante desde tu triple formación (Educación Especial, Gestión Educativa, Psicología Social).</p>
+
+                <!-- CITA DESTACADA -->
+                <blockquote>
+                    "Una cita poderosa que resuma la idea central del artículo. Esto ayuda a que el lector se detenga y reflexione."
+                    <cite>— Autor o fuente</cite>
+                </blockquote>
+
+                <!-- SUBTÍTULO 1 -->
+                <h2>1. Primer subtítulo del desarrollo</h2>
+                <p>Desarrollo del primer punto. Usa párrafos cortos (máximo 3-4 líneas) para facilitar la lectura en pantalla. Los lectores web escanean, no leen palabra por palabra.</p>
+
+                <p>Otro párrafo que profundice. Puedes incluir <strong>ejemplos concretos</strong> de tu práctica profesional. La autenticidad es lo que diferencia tu blog de los demás.</p>
+
+                <!-- HIGHLIGHT -->
+                <div class="article-highlight">
+                    <p>"Una frase memorable que el lector pueda compartir o guardar. Piensa en esto como un tweet dentro del artículo."</p>
+                </div>
+
+                <!-- SUBTÍTULO 2 -->
+                <h2>2. Segundo subtítulo</h2>
+                <p>Continúa desarrollando la idea. Varía el formato: usa listas cuando sea apropiado.</p>
+
+                <ul>
+                    <li><strong>Primer punto clave:</strong> explicación breve de por qué importa.</li>
+                    <li><strong>Segundo punto clave:</strong> conecta con tu experiencia práctica.</li>
+                    <li><strong>Tercer punto clave:</strong> ofrece una acción concreta.</li>
+                </ul>
+
+                <p>Reflexión que conecte los puntos anteriores con una idea más amplia.</p>
+
+                <!-- SUBTÍTULO 3 -->
+                <h2>3. Tercer subtítulo</h2>
+                <p>Aquí puedes profundizar en la dimensión práctica. ¿Qué puede hacer el lector con esta información?</p>
+
+                <h3>Un subtítulo más específico</h3>
+                <p>Detalles que aporten valor. No temas ser técnica cuando sea necesario, pero siempre vuelve a conectar con el significado humano.</p>
+
+                <!-- CITA DESTACADA -->
+                <blockquote>
+                    "Otra cita que refuerce tu argumento. Puede ser de un autor que admires, un participante de tus talleres, o incluso algo que dijiste tú misma en una sesión."
+                    <cite>— Fuente</cite>
+                </blockquote>
+
+                <!-- CONCLUSIÓN -->
+                <h2>Para reflexionar</h2>
+                <p>Conclusión que no resuma, sino que <strong>abra</strong>. Deja al lector con una pregunta, una invitación o un desafío. El mejor contenido no termina, continúa en la mente del lector.</p>
+
+                <p>Puedes cerrar con una invitación a la acción: un curso, una consulta, o simplemente seguir la conversación en el próximo artículo.</p>
+
+            </div>
+
+            <!-- AUTHOR BOX -->
+            <div class="author-box fade-in">
+                <div class="author-avatar">EL</div>
+                <div class="author-info">
+                    <h4>Entre Lazos</h4>
+                    <div class="author-role">Profesora · Gestora · Psicóloga Social</div>
+                    <p>Acompaño procesos de inclusión, fortalezco vínculos y construyo comunidades donde la diversidad sea celebrada y la empatía sea el lenguaje común.</p>
+                </div>
+            </div>
+
+            <!-- SHARE -->
+            <div class="share-section">
+                <h4>Compartir este artículo</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn" title="Facebook">f</a>
+                    <a href="#" class="share-btn" title="Twitter">X</a>
+                    <a href="#" class="share-btn" title="LinkedIn">in</a>
+                    <a href="#" class="share-btn" title="WhatsApp">W</a>
+                    <a href="#" class="share-btn" title="Copiar link">&#128279;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RELATED ARTICLES -->
+    <section class="related-section">
+        <div class="related-header">
+            <h2>Artículos relacionados</h2>
+        </div>
+        <div class="related-grid">
+            <a href="#" class="related-card">
+                <div class="related-image psico">
+                    <div class="icon">&#9829;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat psico">Psicología Social</div>
+                    <h4>Título de un artículo relacionado aquí</h4>
+                </div>
+            </a>
+            <a href="#" class="related-card">
+                <div class="related-image gestion">
+                    <div class="icon">&#9851;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat gestion">Gestión Educativa</div>
+                    <h4>Otro artículo que complemente este tema</h4>
+                </div>
+            </a>
+            <a href="#" class="related-card">
+                <div class="related-image edu">
+                    <div class="icon">&#9733;</div>
+                </div>
+                <div class="related-content">
+                    <div class="cat edu">Educación Especial</div>
+                    <h4>Un tercer artículo para seguir explorando</h4>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Recibe reflexiones en tu bandeja</h2>
+            <p>Un artículo cada quincena. Sin spam, solo ideas que conectan y transforman.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte! Recibirás las próximas reflexiones en tu email.');">
+                <input type="email" placeholder="tu@email.com" required>
+                <button type="submit">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo">Entre <span>Lazos</span></a>
+                <p>Construyendo comunidades inclusivas, fortaleciendo vínculos y transformando realidades a través de la empatía y la diversidad.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.html#servicios">Servicios</a></li>
+                    <li><a href="../index.html#capacitaciones">Capacitaciones</a></li>
+                    <li><a href="../index.html#sobre-nosotros">Sobre Mí</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contenido</h4>
+                <ul>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../index.html#testimonios">Testimonios</a></li>
+                    <li><a href="../index.html#precios">Precios</a></li>
+                    <li><a href="../index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="../index.html#servicios">Consultoría</a></li>
+                    <li><a href="../index.html#servicios">Capacitación</a></li>
+                    <li><a href="../index.html#servicios">Acompañamiento</a></li>
+                    <li><a href="../index.html#servicios">Gestión Social</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Entre Lazos. Todos los derechos reservados. Hecho con empatía.
+        </div>
+    </footer>
+
+    <script>
+        // Fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '80px';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(250,248,245,0.98)';
+            navLinks.style.padding = '24px';
+            navLinks.style.gap = '20px';
+            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        }
+    </script>
+</body>
+</html>
